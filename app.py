@@ -188,15 +188,96 @@ def plot_industry_distribution(df):
 # ================================
 # Giao diện Streamlit
 # ================================
-st.title("🏢 Gợi ý công ty tương tự (Doc2Vec)")
+
 
 st.sidebar.header("🔧 Tuỳ chọn")
 top_n = st.sidebar.slider("Số lượng công ty gợi ý", min_value=3, max_value=15, value=5)
 industry_list = df['Company industry'].dropna().unique().tolist()
 selected_industry = st.sidebar.selectbox("📂 Lọc theo ngành", ["-- Tất cả --"] + sorted(industry_list))
 industry_filter = None if selected_industry == "-- Tất cả --" else selected_industry
+import streamlit as st
 
-tab1, tab2 = st.tabs(["🔍 Tìm theo tên công ty", "✍️ Tìm theo mô tả"])
+# Thêm CSS để hiển thị tên, hình ảnh, bản quyền và ký hiệu
+
+
+st.markdown(
+    """
+    <style>
+    /* CSS cho tên và hình ảnh ở góc trái dưới cùng */
+    .css-1d391kg {
+        font-size: 16px;
+        font-weight: bold;
+        position: fixed;
+        left: 10px;
+    }
+    .css-1d391kg-first {
+        bottom: 60px;  /* Dòng tên đầu tiên cách đáy một khoảng */
+    }
+    .css-1d391kg-second {
+        bottom: 30px;  /* Dòng tên thứ hai cách đáy một khoảng */
+    }
+
+    /* CSS cho hình ảnh dưới "Gợi ý công ty tương tự" */
+    .image-container {
+        position: relative;
+        margin-top: 20px;  /* Căn hình ảnh xuống dưới phần tiêu đề */
+        text-align: center;
+        width: 50%;  /* Giảm chiều rộng của container xuống 50% */
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;  /* Loại bỏ padding */
+    }
+
+    /* Điều chỉnh hình ảnh để kéo dài hết chiều ngang */
+    .image-container img {
+        width: 100%;  /* Hình ảnh sẽ chiếm toàn bộ chiều rộng của container */
+        height: auto;  /* Giữ tỉ lệ chiều cao cho hình ảnh */
+        object-fit: cover;  /* Kéo dãn hình ảnh để lấp đầy container mà không làm biến dạng */
+        margin: 0;   /* Loại bỏ margin xung quanh hình ảnh */
+        padding: 0;  /* Loại bỏ padding trong hình ảnh */
+    }
+
+    /* CSS cho bản quyền và ký hiệu trên cùng */
+    .copyright {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        color: grey;
+    }
+    .icon {
+        position: fixed;
+        top: 10px;
+        right: 50px;
+        font-size: 24px;
+        color: grey;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+# Hiển thị tiêu đề "Gợi ý công ty tương tự"
+st.title("🏢 Gợi ý công ty tương tự (Doc2Vec)")
+# Sử dụng st.image để hiển thị hình ảnh với URL
+st.image('ITViec.jpg', use_container_width=True) # phiên bản mới hơn
+
+
+# Thêm ký hiệu ở góc trên bên phải
+st.markdown('<div class="icon">CopyRight@LeHuuSonHai</div>', unsafe_allow_html=True)
+
+
+# Tạo container cho sidebar
+with st.sidebar.container():
+    st.markdown('<div class="css-1d391kg-container">', unsafe_allow_html=True)
+    
+    # Dòng tên đầu tiên
+    st.markdown('<div class="css-1d391kg css-1d391kg-first">Lê Hữu Sơn Hải</div>', unsafe_allow_html=True)
+    
+    # Dòng tên thứ hai
+    st.markdown('<div class="css-1d391kg css-1d391kg-second">Đoàn Trung Cường</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+tab1, tab2, tab3 = st.tabs(["🔍 Tìm theo tên công ty", "✍️ Tìm theo mô tả", "Trực quan hóa dữ liệu"])
 
 # Tab 1: Tìm theo tên công ty
 with tab1:
@@ -229,10 +310,6 @@ with tab1:
             st.subheader("🔎 Kết quả phân loại:")
             st.write(f"Công ty **{found_name}** được phân loại là: **{recommendation}**")
 
-            st.subheader("📊 Biểu đồ phân tích dữ liệu")
-            plot_recommendation_distribution(df)
-            plot_industry_distribution(df)
-
 # Tab 2: Tìm theo mô tả
 with tab2:
     st.subheader("✍️ Nhập mô tả công ty hoặc lĩnh vực bạn muốn tìm:")
@@ -245,3 +322,9 @@ with tab2:
 
         csv_desc = results_desc.to_csv(index=False).encode('utf-8')
         st.download_button("⬇️ Tải danh sách CSV", csv_desc, "description_based_suggestions.csv", "text/csv")
+
+# Tab 3: Visualization
+with tab3:
+    st.subheader("📊 Biểu đồ phân tích dữ liệu")
+    plot_recommendation_distribution(df)
+    plot_industry_distribution(df)
