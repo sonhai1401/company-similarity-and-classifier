@@ -1,0 +1,10 @@
+streamlit
+numpy== 1.26.4
+pandas== 1.5.3
+matplotlib==3.9.2
+seaborn==0.13.2
+scikit-learn==1.6.1
+joblib==1.4.2
+gensim== 4.3.3
+xgboost==3.0.1
+openpyxl==3.1.5

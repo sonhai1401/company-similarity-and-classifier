@@ -29,7 +29,7 @@ df_companies, doc2vec_model, doc2vec_vectors = load_doc2vec_and_data()
 # ================================
 @st.cache_resource
 def load_xgboost_classifier():
-    with open("saved_models/XGBoost_pipeline.pkl", "rb") as f:
+    with open("models/XGBoost_pipeline.pkl", "rb") as f:
         xgboost_classifier = joblib.load(f)
     return xgboost_classifier
 
