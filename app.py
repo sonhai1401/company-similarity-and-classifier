@@ -216,8 +216,7 @@ with tab3:
     plot_recommendation_distribution(df)
     plot_industry_distribution(df)
     plot_recommendation_ratio_by_industry(df)
-    plot_pca_doc2vec(doc2vec_vectors, df)
-
+ 
 with tab4:
     uploaded_file = st.file_uploader("Tải file CSV/XLSX", type=["csv", "xlsx"])
     if uploaded_file:
