@@ -179,16 +179,6 @@ def plot_recommendation_ratio_by_industry(df):
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
     st.pyplot(fig)
 
-def plot_pca_doc2vec(vectors, df):
-    pca = PCA(n_components=2)
-    reduced = pca.fit_transform(vectors)
-    df_plot = pd.DataFrame(reduced, columns=["x", "y"])
-    df_plot["industry"] = df["Company industry"]
-    plt.figure(figsize=(10, 6))
-    sns.scatterplot(data=df_plot, x="x", y="y", hue="industry", alpha=0.7)
-    plt.title("Biểu đồ PCA vector Doc2Vec")
-    st.pyplot(plt)
-
 # === Sidebar ===
 with st.sidebar:
     top_n = st.slider("Số lượng công ty gợi ý", 3, 15, 5)
