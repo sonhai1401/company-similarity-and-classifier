@@ -154,15 +154,79 @@ def plot_industry_distribution(df):
     plt.tight_layout()
     st.pyplot(plt)
 
-st.markdown("""<style>
-    .css-1d391kg { font-size: 16px; font-weight: bold; position: fixed; left: 10px; }
-    .css-1d391kg-first { bottom: 60px; }
-    .css-1d391kg-second { bottom: 30px; }
-    .image-container { position: relative; margin-top: 20px; text-align: center; width: 50%; margin-left: auto; margin-right: auto; padding: 0; }
-    .image-container img { width: 100%; height: auto; object-fit: cover; margin: 0; padding: 0; }
-    .copyright { position: fixed; top: 10px; left: 10px; font-size: 14px; color: grey; }
-    .icon { position: fixed; top: 10px; right: 50px; font-size: 24px; color: grey; }
-</style>""", unsafe_allow_html=True)
+st.markdown("""
+<style>
+    .css-1d391kg {
+        font-size: 16px;
+        font-weight: bold;
+        position: fixed;
+        left: 10px;
+    }
+
+    .css-1d391kg-first {
+        bottom: 80px;
+    }
+
+    .css-1d391kg-email-first {
+        bottom: 60px;
+        font-weight: normal;
+        font-size: 14px;
+        color: gray;
+        position: fixed;
+        left: 10px;
+    }
+
+    .css-1d391kg-second {
+        bottom: 40px;
+    }
+
+    .css-1d391kg-email-second {
+        bottom: 20px;
+        font-weight: normal;
+        font-size: 14px;
+        color: gray;
+        position: fixed;
+        left: 10px;
+    }
+
+    .image-container {
+        position: relative;
+        margin-top: 20px;
+        text-align: center;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin: 0;
+        padding: 0;
+    }
+
+    .copyright {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        color: grey;
+    }
+
+    .icon {
+        position: fixed;
+        top: 10px;
+        right: 50px;
+        font-size: 24px;
+        color: grey;
+    }
+</style>
+
+
+""", unsafe_allow_html=True)
+
 
 st.title("🏢 Gợi ý công ty tương tự (Doc2Vec)")
 st.image('ITViec.jpg', use_container_width=True)
@@ -177,7 +241,9 @@ industry_filter = None if selected_industry == "-- Tất cả --" else selected_
 with st.sidebar.container():
     st.markdown('<div class="css-1d391kg-container">', unsafe_allow_html=True)
     st.markdown('<div class="css-1d391kg css-1d391kg-first">Lê Hữu Sơn Hải</div>', unsafe_allow_html=True)
+    st.markdown('<div class="css-1d391kg-email-first">lehuusonhai@gmaill.com</div>', unsafe_allow_html=True)
     st.markdown('<div class="css-1d391kg css-1d391kg-second">Đoàn Trung Cường</div>', unsafe_allow_html=True)
+    st.markdown('<div class="css-1d391kg-email-second">trungcuong.doan2601@gmail.com</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
 tab1, tab2, tab3, tab4 = st.tabs(["🔍 Tìm theo tên công ty", "✍️ Tìm theo mô tả", "Trực quan hóa dữ liệu", "📂 Dự đoán theo file"])
