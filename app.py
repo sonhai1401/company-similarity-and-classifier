@@ -224,8 +224,9 @@ with tab3:
 
 
 with tab4:
-    uploaded_file = st.file_uploader("Tải file CSV/XLSX", type=["csv", "xlsx"])
+    uploaded_file = st.file_uploader("📤 Tải file CSV/XLSX", type=["csv", "xlsx"])
     if uploaded_file:
+        # Đọc file
         if uploaded_file.name.endswith(".csv"):
             df_input = pd.read_csv(uploaded_file)
         else:
@@ -234,28 +235,34 @@ with tab4:
         st.subheader("📄 Dữ liệu đã tải")
         st.dataframe(df_input)
 
+        # Các cột cần thiết
         required_columns = ['Company overview', 'Company industry', 'Training & learning', 'Salary & benefits']
 
-        # Đảm bảo đủ cột và xử lý giá trị thiếu
+        # Đảm bảo có đủ các cột đầu vào
         for col in required_columns:
             if col not in df_input.columns:
                 df_input[col] = ""
 
-        # Ép kiểu văn bản cho 3 cột text
-        text_columns = ['Company overview', 'Company industry', 'Training & learning']
-        for col in text_columns:
-            df_input[col] = df_input[col].astype(str).fillna("")
+        # Làm sạch dữ liệu giống lúc huấn luyện
+        df_input['Company overview'] = df_input['Company overview'].astype(str).fillna("")
+        df_input['Company industry'] = df_input['Company industry'].fillna("Unknown")
+        df_input['Training & learning'] = pd.to_numeric(df_input['Training & learning'], errors='coerce')
+        df_input['Salary & benefits'] = pd.to_numeric(df_input['Salary & benefits'], errors='coerce')
 
-        # Ép kiểu số cho cột numeric
-        df_input['Salary & benefits'] = pd.to_numeric(df_input['Salary & benefits'], errors='coerce').fillna(0.0)
+        df_input['Training & learning'] = df_input['Training & learning'].fillna(df_input['Training & learning'].median())
+        df_input['Salary & benefits'] = df_input['Salary & benefits'].fillna(df_input['Salary & benefits'].median())
 
         # Dự đoán
         try:
-            preds = xgboost_classifier.predict(df_input[required_columns])
+            features = df_input[required_columns]
+            preds = xgboost_classifier.predict(features)
             df_input['Prediction'] = np.where(preds == 1, "Recommend", "Not Recommend")
         except Exception as e:
             st.error(f"❌ Lỗi khi phân loại: {e}")
 
+        # Kết quả
         st.subheader("🔍 Kết quả phân loại")
         st.dataframe(df_input)
+
+        # Tải xuống kết quả
         st.download_button("⬇️ Tải kết quả", df_input.to_csv(index=False).encode("utf-8"), "batch_predictions.csv")
