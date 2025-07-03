@@ -1,107 +1,92 @@
-# 🏢 Company Similarity & Classifier (Doc2Vec + XGBoost)
 
-**Company Similarity and Classifier** là một ứng dụng Streamlit giúp người dùng:
+# 🏢 Company Similarity & Classifier
 
-- Gợi ý các công ty tương tự dựa trên tên hoặc mô tả.
-- Dự đoán mức độ nên làm việc tại công ty bằng mô hình học máy.
-- Trực quan hóa xu hướng ngành và hiệu suất công ty.
-- Phân tích hàng loạt từ file đầu vào (CSV/XLSX).
+This project is an interactive Streamlit dashboard that leverages NLP (Doc2Vec) and machine learning (XGBoost) to suggest similar companies and predict recommendation likelihood based on employee reviews and company profiles.
 
-## 🧠 Công nghệ sử dụng
+## 🔍 Features
 
-- **Doc2Vec (Gensim):** Tạo vector biểu diễn công ty từ phần mô tả.
-- **XGBoost (sklearn):** Phân loại công ty thành *Recommend* / *Not Recommend*.
-- **Plotly + Seaborn + Matplotlib:** Trực quan hóa dữ liệu.
-- **Streamlit:** Giao diện người dùng trực quan, dễ dùng.
+### 1. Company Name-based Recommendation
+- Input a company name to find top-N most similar companies.
+- Uses pre-trained **Doc2Vec** embeddings and **cosine similarity**.
+- Optional: Filter by industry.
+- Display common keywords between companies.
 
----
+### 2. Description-based Suggestion
+- Input free-form text (e.g., “AI-focused software company in fintech”) to find similar companies.
+- Uses Doc2Vec `infer_vector` to generate embedding for the input description.
 
-## 🎯 Tính năng chính
+### 3. Partner Suggestion (Cross-industry)
+- Finds top potential partner companies from **different industries** but similar profiles.
 
-### 🔍 Tìm công ty tương tự
-- Gợi ý top-N công ty tương tự theo tên hoặc mô tả.
-- Lọc theo ngành cụ thể.
-- Hiển thị từ khóa chung để giải thích tương đồng.
+### 4. Recommendation Classifier (XGBoost)
+- Predict whether a company is recommended by employees.
+- Uses features like:
+  - `Company overview`
+  - `Company industry`
+  - `Training & learning`
+  - `Salary & benefits`
 
-### 🤝 Gợi ý đối tác khác ngành
-- Tìm công ty khác ngành có điểm tương đồng cao.
-
-### 📈 Trực quan hóa dữ liệu
-- Phân tích phân bố `Recommend` theo ngành.
-- Mạng lưới tương tác giữa các công ty.
-- Biểu đồ gauge KPI, sunburst, treemap, 3D scatter, animated timeline.
-
-### 📂 Phân loại hàng loạt
-- Cho phép tải lên file CSV/XLSX chứa nhiều công ty.
-- Trả về dự đoán mức độ *Recommend*.
+### 5. Batch Prediction via File Upload
+- Upload a `.csv` or `.xlsx` file with multiple companies to get predictions in batch.
 
 ---
 
-## 📦 Cấu trúc thư mục
+## 📊 Visualizations Dashboard
+
+Includes rich and interactive visualizations:
+
+- 🧭 **Gauge Charts**: Recommend rate, average scores, number of industries
+- 🗂️ **Treemap**: Company distribution by industry and recommendation label
+- 🌈 **Sunburst Chart**: Industry performance breakdown
+- 🕸️ **Interactive Network Graph**: Shows similarity network centered on a selected company
+- 🎥 **Animated Timeline**: Simulated growth trends by industry (2020–2024)
+- 🎯 **3D Scatter Plot**: Training vs Salary vs Combined Score
+- 📊 **Industry-wise Stacked Bars**: Number of companies per recommendation per industry
+
+---
+
+## 🧠 Tech Stack
+
+- **Python 3.9+**
+- **Streamlit** for dashboard interface
+- **Gensim** for Doc2Vec model
+- **XGBoost** for classification
+- **Pandas**, **NumPy**, **Plotly**, **NetworkX** for processing and visualization
+
+---
+
+## 📁 Directory Structure
 
 ```
 .
 ├── Data/
 │   ├── companies_cleaned.csv
-│   └── Overview_Reviews.xlsx
+│   ├── Overview_Reviews.xlsx
 ├── models/
 │   ├── doc2vec_company.model
 │   ├── doc2vec_vectors.npy
-│   └── XGBoost_pipeline.pkl
-├── app.py                 # File Streamlit chính
-├── README.md              # File mô tả dự án
-└── requirements.txt       # Thư viện cần cài
+│   ├── XGBoost_pipeline.pkl
+├── app.py                  # Main Streamlit app
+├── README.md               # This file
 ```
 
 ---
 
-## ⚙️ Cài đặt & Chạy ứng dụng
+## 🚀 How to Run
 
-### 1. Clone repo:
-```bash
-git clone https://github.com/yourusername/company-similarity-and-classifier.git
-cd company-similarity-and-classifier
-```
-
-### 2. Tạo môi trường ảo (khuyến nghị):
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-venv\Scripts\activate     # Windows
-```
-
-### 3. Cài đặt các thư viện:
 ```bash
 pip install -r requirements.txt
-```
-
-### 4. Chạy ứng dụng:
-```bash
 streamlit run app.py
 ```
 
----
-
-## 📄 Yêu cầu file dữ liệu
-
-Bạn cần chuẩn bị các file sau trong thư mục `Data/` và `models/`:
-
-- `companies_cleaned.csv` – Dữ liệu mô tả công ty.
-- `Overview_Reviews.xlsx` – Tỷ lệ Recommend và thông tin mở rộng.
-- `doc2vec_company.model` – Mô hình Doc2Vec đã huấn luyện.
-- `doc2vec_vectors.npy` – Vector biểu diễn công ty.
-- `XGBoost_pipeline.pkl` – Pipeline mô hình phân loại.
-
-Liên hệ tác giả nếu bạn cần mô hình mẫu để chạy thử.
+Make sure all files in `Data/` and `models/` are in the correct place.
 
 ---
 
-## 📧 Tác giả
+## 👥 Authors
 
-- **Lê Hữu Sơn Hải**  
-  Email: lehuusonhai@gmail.com
----
+- **Lê Hữu Sơn Hải** – lehuusonhai@gmail.com  
 
 ## 📜 License
 
-MIT License – Bạn có thể sử dụng và chỉnh sửa thoải mái cho mục đích cá nhân hoặc nghiên cứu.
+This project is for educational and research purposes only. No commercial use is allowed without permission.
