@@ -99,7 +99,6 @@ Make sure all files in `Data/` and `models/` are in the correct place.
 ## 👥 Authors
 
 - **Lê Hữu Sơn Hải** – lehuusonhai@gmail.com  
-- **Đoàn Trung Cường** – trungcuong.doan2601@gmail.com  
 
 ---
 
