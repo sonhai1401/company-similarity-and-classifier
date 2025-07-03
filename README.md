@@ -61,7 +61,9 @@ Includes rich and interactive visualizations:
 .
 ├── Data/
 │   ├── companies_cleaned.csv
+│   ├── Overview_Companies.xlsx
 │   ├── Overview_Reviews.xlsx
+│   └── Reviews.xlsx
 ├── models/
 │   ├── doc2vec_company.model
 │   ├── doc2vec_vectors.npy
@@ -69,6 +71,17 @@ Includes rich and interactive visualizations:
 ├── app.py                  # Main Streamlit app
 ├── README.md               # This file
 ```
+
+## 📂 Dataset Files (`Data/` Folder)
+
+The `Data/` directory contains the necessary datasets used for training and running the app:
+
+| File name               | Description                                           |
+|-------------------------|-------------------------------------------------------|
+| `companies_cleaned.csv` | Preprocessed company information with textual data.   |
+| `Overview_Companies.xlsx` | Raw overview data of companies (extended attributes).|
+| `Overview_Reviews.xlsx`  | Contains ratings or review summaries per company.    |
+| `Reviews.xlsx`           | Full review texts collected from various sources.    |
 
 ---
 
@@ -86,7 +99,12 @@ Make sure all files in `Data/` and `models/` are in the correct place.
 ## 👥 Authors
 
 - **Lê Hữu Sơn Hải** – lehuusonhai@gmail.com  
+- **Đoàn Trung Cường** – trungcuong.doan2601@gmail.com  
+
+---
 
 ## 📜 License
 
 This project is for educational and research purposes only. No commercial use is allowed without permission.
+
+> 🔎 *Ensure all files are placed in the `Data/` directory before running the application.*
