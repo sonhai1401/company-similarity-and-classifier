@@ -807,7 +807,7 @@ st.title("🏢 Gợi ý công ty tương tự (Doc2Vec)")
 st.image('ITViec.jpg', use_container_width=True)
 st.markdown('<div class="icon">CopyRight@LeHuuSonHai</div>', unsafe_allow_html=True)
 
-st.sidebar.header("🔧 Tuì chọn")
+st.sidebar.header("🔧 Tùy chọn")
 top_n = st.sidebar.slider("Số lượng công ty gợi ý", min_value=3, max_value=15, value=5)
 industry_list = df['Company industry'].dropna().unique().tolist()
 selected_industry = st.sidebar.selectbox("📂 Lọc theo ngành", ["-- Tất cả --"] + sorted(industry_list))
